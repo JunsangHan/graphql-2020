@@ -24,8 +24,9 @@ fun apolloClient(context: Context): ApolloClient {
         .build()
 
     instance = ApolloClient.builder()
-        .serverUrl("https://apollo-fullstack-tutorial.herokuapp.com/graphql")
-        .subscriptionTransportFactory(WebSocketSubscriptionTransport.Factory("wss://apollo-fullstack-tutorial.herokuapp.com/graphql", okHttpClient))
+//        .serverUrl("https://apollo-fullstack-tutorial.herokuapp.com/graphql")
+        .serverUrl("https://api.github.com/graphql")
+//        .subscriptionTransportFactory(WebSocketSubscriptionTransport.Factory("wss://apollo-fullstack-tutorial.herokuapp.com/graphql", okHttpClient))
         .okHttpClient(okHttpClient)
         .build()
 
@@ -35,7 +36,9 @@ fun apolloClient(context: Context): ApolloClient {
 private class AuthorizationInterceptor(val context: Context) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request().newBuilder()
-            .addHeader("Authorization", User.getToken(context) ?: "")
+//            .addHeader("Authorization", User.getToken(context) ?: "")
+            .addHeader("Authorization"
+                , "Bearer " + "526ed5d1308cf815790d11a8d5443e075af1f283")
             .build()
 
         return chain.proceed(request)
